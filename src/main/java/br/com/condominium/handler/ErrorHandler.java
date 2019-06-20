@@ -1,5 +1,7 @@
 package br.com.condominium.handler;
 
+import br.com.condominium.exception.ResourceNotFound;
+import br.com.condominium.model.dto.ErrorDTO;
 import br.com.condominium.model.dto.ErrorValidationDTO;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +32,10 @@ public class ErrorHandler {
                 messageSource.getMessage(error, LocaleContextHolder.getLocale()))).collect(Collectors.toList());
     }
 
-    @ExceptionHandler(DuplicateKeyException.class)
-    public List<ErrorValidationDTO> handle(DuplicateKeyException exception){
-        return Lists.newArrayList(new ErrorValidationDTO("RG", "Duplicated RG"));
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ResourceNotFound.class)
+    public List<ErrorDTO> handle(ResourceNotFound exception){
+        return Lists.newArrayList(new ErrorDTO(exception.getClass().getSimpleName(), exception.getLocalizedMessage()));
     }
 
 }
