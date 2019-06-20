@@ -1,6 +1,7 @@
 package br.com.condominium.filter;
 
 import br.com.condominium.config.SecurityConstants;
+import br.com.condominium.config.URIConfigs;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -28,7 +29,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager){
         this.authenticationManager = authenticationManager;
 
-        setFilterProcessesUrl(SecurityConstants.AUTH_LOGIN_URL);
+        setFilterProcessesUrl(URIConfigs.AUTH_LOGIN_URL);
     }
 
     @Override

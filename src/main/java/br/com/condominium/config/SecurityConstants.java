@@ -2,8 +2,6 @@ package br.com.condominium.config;
 
 public class SecurityConstants {
 
-    public static final String AUTH_LOGIN_URL = "/api/authenticate";
-
     //Singning key for HS512 algorithm
     //You can use the page http://www.allkeysgenerator.com/ to generate all kinds of keys
     public static final String JWT_SECRET = "WmYq3t6w9z$C&F)J@NcRfUjXn2r4u7x!A%D*G-KaPdSgVkYp3s6v8y/B?E(H+MbQ";
