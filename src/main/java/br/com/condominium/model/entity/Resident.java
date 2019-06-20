@@ -1,27 +1,37 @@
 package br.com.condominium.model.entity;
 
-import lombok.Builder;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Builder
-@Document(collection = "residents")
+@Entity(name = "residents")
 public class Resident {
 
     @Id
+    @Column(nullable = false, length = 50)
     private String id;
 
+    @Column(nullable = false)
     private String name;
 
-    @Indexed(unique = true)
+    @Column(unique=true)
     private String rg;
 
+    @Column(nullable = false)
     private String apartment;
 
+    @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    public Resident() {
+    }
+
+    public Resident(String name, String rg, String apartment) {
+        this.name = name;
+        this.rg = rg;
+        this.apartment = apartment;
+    }
 
     public String getId() {
         return id;

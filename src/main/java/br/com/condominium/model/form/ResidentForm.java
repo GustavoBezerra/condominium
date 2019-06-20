@@ -1,5 +1,6 @@
 package br.com.condominium.model.form;
 
+import br.com.condominium.model.builder.ResidentBuilder;
 import br.com.condominium.model.entity.Resident;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -29,9 +30,9 @@ public class ResidentForm {
     }
 
     public Resident toResident(){
-        return Resident.builder()
-                .name(this.name)
-                .rg(this.rg)
-                .apartment(this.apartment).build();
+        return new ResidentBuilder()
+                .withName(this.name)
+                .withRg(this.rg)
+                .withApartment(this.apartment).build();
     }
 }
