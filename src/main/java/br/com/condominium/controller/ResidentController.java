@@ -6,12 +6,11 @@ import br.com.condominium.model.form.ResidentForm;
 import br.com.condominium.service.ResidentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
-import javax.xml.ws.Response;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +25,7 @@ public class ResidentController {
     private ResidentService residentService;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<ResidentDTO> create(@RequestBody @Valid ResidentForm request, UriComponentsBuilder uriBuilder){
         Resident resident = residentService.save(request.toResident());
         URI uri = uriBuilder.path(REPRESENTS_URI + "/{id}").buildAndExpand(resident.getId()).toUri();
@@ -43,5 +43,12 @@ public class ResidentController {
         List<Resident> residents = residentService.getAll();
         List<ResidentDTO> residentDTOS = residents.stream().map(ResidentDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(residentDTOS);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<?> delete(@PathVariable("id") String id){
+        residentService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

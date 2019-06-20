@@ -30,4 +30,8 @@ public class ResidentService {
     public Resident getById(String id) {
         return residentRepository.findById(id).orElseThrow(() -> new ResourceNotFound(id));
     }
+
+    public void delete(String id) {
+        this.residentRepository.deleteById(id);
+    }
 }

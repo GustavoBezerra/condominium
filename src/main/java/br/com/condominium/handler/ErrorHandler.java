@@ -7,13 +7,14 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.MethodNotAllowedException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +36,12 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ResourceNotFound.class)
     public List<ErrorDTO> handle(ResourceNotFound exception){
-        return Lists.newArrayList(new ErrorDTO(exception.getClass().getSimpleName(), exception.getLocalizedMessage()));
+        return Lists.newArrayList(new ErrorDTO(HttpStatus.NOT_FOUND.getReasonPhrase(), exception.getLocalizedMessage()));
     }
 
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public List<ErrorDTO> handle(HttpRequestMethodNotSupportedException exception){
+        return Lists.newArrayList(new ErrorDTO(HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase(), exception.getLocalizedMessage()));
+    }
 }
