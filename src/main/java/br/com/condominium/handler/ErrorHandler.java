@@ -1,4 +1,4 @@
-package br.com.condominium.controller;
+package br.com.condominium.handler;
 
 import br.com.condominium.model.dto.ErrorValidationDTO;
 import com.google.common.collect.Lists;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
-public class ErrorValidationHandler {
+public class ErrorHandler {
 
     @Autowired
     private MessageSource messageSource;

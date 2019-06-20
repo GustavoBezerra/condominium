@@ -5,7 +5,6 @@ import br.com.condominium.model.entity.Resident;
 import br.com.condominium.model.form.ResidentForm;
 import br.com.condominium.service.ResidentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-
 import java.net.URI;
 
 import static br.com.condominium.config.URIConfigs.REPRESENTS_URI;
